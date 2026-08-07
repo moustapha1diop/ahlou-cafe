@@ -250,8 +250,10 @@
                             if (media.type === 'image') {
                                 const item = document.createElement('div');
                                 item.className = 'gallery-item';
+                                item.style.position = 'relative';
                                 item.innerHTML =
                                     '<img src="' + media.url + '" alt="' + (title || 'Ahlou Café') + '">' +
+                                    '<a href="' + media.url + '" download="' + (title || 'ahlou-cafe') + '" target="_blank" rel="noopener" title="Télécharger l\'image" style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none;"><i class="fas fa-download"></i></a>' +
                                     (title ? '<div class="image-title">' + title + '</div>' : '');
                                 imagesContainer.appendChild(item);
                             } else if (media.type === 'video') {
