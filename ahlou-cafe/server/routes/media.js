@@ -1,6 +1,5 @@
 const express = require('express');
 const multer = require('multer');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const cloudinary = require('../config/cloudinary');
 const Media = require('../models/Media');
@@ -10,19 +9,8 @@ const router = express.Router();
 
 const allowedExtensions = /\.(jpe?g|png|gif|webp|mp4|mov|webm|avi)$/i;
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: (req, file) => {
-    const isVideo = /\.(mp4|mov|webm|avi)$/i.test(file.originalname);
-    return {
-      folder: 'ahlou-cafe',
-      resource_type: isVideo ? 'video' : 'image',
-    };
-  },
-});
-
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 150 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (allowedExtensions.test(file.originalname)) {
@@ -32,6 +20,19 @@ const upload = multer({
     }
   },
 });
+
+function uploadBufferToCloudinary(buffer, resourceType) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'ahlou-cafe', resource_type: resourceType },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
 
 router.get('/', async (req, res) => {
   try {
@@ -55,17 +56,21 @@ router.post('/', requireAuth, (req, res) => {
 
     try {
       const isVideo = /\.(mp4|mov|webm|avi)$/i.test(req.file.originalname);
+      const resourceType = isVideo ? 'video' : 'image';
+
+      const result = await uploadBufferToCloudinary(req.file.buffer, resourceType);
+
       const media = new Media({
         type: isVideo ? 'video' : 'image',
-        url: req.file.path,
-        filename: req.file.filename,
+        url: result.secure_url,
+        filename: result.public_id,
         title: req.body.title || '',
         section: req.body.section || 'live',
       });
       await media.save();
       res.status(201).json(media);
     } catch (saveErr) {
-      res.status(500).json({ message: "Erreur lors de l'enregistrement en base de données." });
+      res.status(500).json({ message: "Erreur lors de l'envoi vers Cloudinary ou de l'enregistrement en base." });
     }
   });
 });
