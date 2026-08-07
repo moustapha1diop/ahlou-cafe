@@ -1,32 +1,29 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
+const cloudinary = require('../config/cloudinary');
 const Media = require('../models/Media');
 const requireAuth = require('../middleware/auth');
 
 const router = express.Router();
 
-const uploadDir = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const allowedExtensions = /\.(jpe?g|png|gif|webp|mp4|mov|webm|avi)$/i;
 
-// Stockage des fichiers sur le disque du serveur
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: (req, file) => {
+    const isVideo = /\.(mp4|mov|webm|avi)$/i.test(file.originalname);
+    return {
+      folder: 'ahlou-cafe',
+      resource_type: isVideo ? 'video' : 'image',
+    };
   },
 });
 
-const allowedExtensions = /\.(jpe?g|png|gif|webp|mp4|mov|webm|avi)$/i;
-
 const upload = multer({
   storage,
-  limits: { fileSize: 150 * 1024 * 1024 }, // 150 Mo max (utile pour les vidéos)
+  limits: { fileSize: 150 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (allowedExtensions.test(file.originalname)) {
       cb(null, true);
@@ -36,7 +33,6 @@ const upload = multer({
   },
 });
 
-// GET /api/media?section=live  -> liste publique (utilisée par le site)
 router.get('/', async (req, res) => {
   try {
     const filter = {};
@@ -48,7 +44,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /api/media  (protégé) -> ajouter une image ou une vidéo
 router.post('/', requireAuth, (req, res) => {
   upload.single('file')(req, res, async (err) => {
     if (err) {
@@ -62,7 +57,7 @@ router.post('/', requireAuth, (req, res) => {
       const isVideo = /\.(mp4|mov|webm|avi)$/i.test(req.file.originalname);
       const media = new Media({
         type: isVideo ? 'video' : 'image',
-        url: `/uploads/${req.file.filename}`,
+        url: req.file.path,
         filename: req.file.filename,
         title: req.body.title || '',
         section: req.body.section || 'live',
@@ -70,12 +65,11 @@ router.post('/', requireAuth, (req, res) => {
       await media.save();
       res.status(201).json(media);
     } catch (saveErr) {
-      res.status(500).json({ message: 'Erreur lors de l\'enregistrement en base de données.' });
+      res.status(500).json({ message: "Erreur lors de l'enregistrement en base de données." });
     }
   });
 });
 
-// DELETE /api/media/:id (protégé) -> supprimer un média
 router.delete('/:id', requireAuth, async (req, res) => {
   try {
     const media = await Media.findById(req.params.id);
@@ -83,10 +77,11 @@ router.delete('/:id', requireAuth, async (req, res) => {
       return res.status(404).json({ message: 'Média introuvable.' });
     }
 
-    const filePath = path.join(uploadDir, media.filename);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
+    try {
+      await cloudinary.uploader.destroy(media.filename, {
+        resource_type: media.type === 'video' ? 'video' : 'image',
+      });
+    } catch (cloudErr) {}
 
     await media.deleteOne();
     res.json({ message: 'Média supprimé avec succès.' });
