@@ -1,26 +1,17 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const streamifier = require('streamifier');
 
+const cloudinary = require('../config/cloudinary');
 const Media = require('../models/Media');
 const requireAuth = require('../middleware/auth');
 
 const router = express.Router();
 
-const uploadDir = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Stockage des fichiers sur le disque du serveur
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
+// On garde le fichier uploadé en mémoire (pas sur le disque du serveur, qui est
+// effacé à chaque redémarrage sur Render) puis on l'envoie directement vers Cloudinary,
+// qui le stocke de façon permanente et nous donne une URL publique stable.
+const storage = multer.memoryStorage();
 
 const allowedExtensions = /\.(jpe?g|png|gif|webp|mp4|mov|webm|avi)$/i;
 
@@ -35,6 +26,20 @@ const upload = multer({
     }
   },
 });
+
+// Envoie un buffer en mémoire vers Cloudinary et retourne le résultat (url, public_id...)
+function uploadToCloudinary(buffer, resourceType) {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: 'ahlou-cafe', resource_type: resourceType },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result);
+      }
+    );
+    streamifier.createReadStream(buffer).pipe(uploadStream);
+  });
+}
 
 // GET /api/media?section=live  -> liste publique (utilisée par le site)
 router.get('/', async (req, res) => {
@@ -57,13 +62,20 @@ router.post('/', requireAuth, (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'Aucun fichier reçu.' });
     }
+    if (!process.env.CLOUDINARY_URL) {
+      return res.status(503).json({
+        message: "CLOUDINARY_URL manquant côté serveur. Impossible de stocker le fichier de façon permanente.",
+      });
+    }
 
     try {
       const isVideo = /\.(mp4|mov|webm|avi)$/i.test(req.file.originalname);
+      const result = await uploadToCloudinary(req.file.buffer, isVideo ? 'video' : 'image');
+
       const media = new Media({
         type: isVideo ? 'video' : 'image',
-        url: `/uploads/${req.file.filename}`,
-        filename: req.file.filename,
+        url: result.secure_url,
+        filename: result.public_id,
         title: req.body.title || '',
         section: req.body.section || 'live',
       });
@@ -74,7 +86,7 @@ router.post('/', requireAuth, (req, res) => {
       res.status(isDbIssue ? 503 : 500).json({
         message: isDbIssue
           ? "Impossible de contacter la base de données MongoDB Atlas. Vérifiez que le cluster est actif et que l'accès réseau (0.0.0.0/0) est bien autorisé."
-          : "Erreur lors de l'enregistrement en base de données.",
+          : (saveErr.message || "Erreur lors de l'enregistrement du média."),
       });
     }
   });
@@ -88,9 +100,15 @@ router.delete('/:id', requireAuth, async (req, res) => {
       return res.status(404).json({ message: 'Média introuvable.' });
     }
 
-    const filePath = path.join(uploadDir, media.filename);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
+    // media.filename contient le public_id Cloudinary (ex: ahlou-cafe/abcde123)
+    if (media.filename) {
+      try {
+        await cloudinary.uploader.destroy(media.filename, {
+          resource_type: media.type === 'video' ? 'video' : 'image',
+        });
+      } catch (cloudErr) {
+        console.warn('⚠️  Suppression Cloudinary a échoué:', cloudErr.message);
+      }
     }
 
     await media.deleteOne();
