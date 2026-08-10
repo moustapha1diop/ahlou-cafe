@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahlou Café Touba Sourah - Accueil</title>
+
+    <!-- Icônes de l'application (mobile / PWA) -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d4f000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ahlou Café">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header avec Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-mug-hot"></i>
+                    <div class="logo-text">
+                        <h1 data-lang="fr">Ahlou Café Touba Sourah</h1>
+                        <h1 data-lang="wo" style="display: none;">Ahlou Café Touba Sourah</h1>
+                        <p data-lang="fr">Service pendant le Grand Magal</p>
+                        <p data-lang="wo" style="display: none;">Soow réew mi ci Magal gu Ñaari</p>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul id="navMenu">
+                        <li><a href="#" class="nav-link active" data-page="home" data-lang="fr">Accueil</a>
+                            <a href="#" class="nav-link active" data-page="home" data-lang="wo" style="display: none;">Njëkk</a></li>
+                        <li><a href="#" class="nav-link" data-page="media" data-lang="fr">Média</a>
+                            <a href="#" class="nav-link" data-page="media" data-lang="wo" style="display: none;">Média</a></li>
+                        <li><a href="#" class="nav-link" data-page="about" data-lang="fr">À propos</a>
+                            <a href="#" class="nav-link" data-page="about" data-lang="wo" style="display: none;">Ci lanu</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-right">
+                    <div class="language-selector">
+                        <button class="lang-btn">
+                            <i class="fas fa-globe"></i>
+                            <span id="current-lang">Français</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-options">
+                            <div class="lang-option active" data-lang="fr">
+                                <i class="fas fa-check"></i>
+                                Français
+                            </div>
+                            <div class="lang-option" data-lang="wo">
+                                Wolof
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container">
+        <!-- Page Accueil -->
+        <div class="page active" id="home-page">
+            <section class="hero">
+                <h1 data-lang="fr">Ahlou Café Touba Sourah</h1>
+                <h1 data-lang="wo" style="display: none;">Ahlou Café Touba Sourah</h1>
+                <p data-lang="fr">Pendant le Grand Magal de Touba, nous sommes dédiés à servir nos délicieux cafés, thés, laits et autres boissons chaudes pour réconforter les pèlerins et visiteurs.</p>
+                <p data-lang="wo" style="display: none;">Ci Magal gu Ñaari ci Touba, nun dañuy joxe café, ataaya, meew ak yeneen ndox yu sell ngir yombal ñiy sàkku ak seen xool.</p>
+                <a href="#form" class="cta-button" data-lang="fr">Nous contacter</a>
+                <a href="#form" class="cta-button" data-lang="wo" style="display: none;">Nu kontakte</a>
+            </section>
+            
+            <section class="services">
+                <div class="section-title">
+                    <h2 data-lang="fr">Nos Services</h2>
+                    <h2 data-lang="wo" style="display: none;">Sunu Soxna yi</h2>
+                </div>
+                
+                <div class="services-container">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <h3 data-lang="fr">Café Touba</h3>
+                        <h3 data-lang="wo" style="display: none;">Café bu Taaw ci anam gu cosaan</h3>
+                        <p data-lang="fr">Nous servons un café authentique de Touba, préparé avec soin selon les traditions locales, avec des épices sélectionnées pour un goût unique.</p>
+                        <p data-lang="wo" style="display: none;">Dafay joxe café bu wóor ci Touba, mooy defar ak mbeug ci anam gu cosaan, ak dàpp yu rafet ngir doomu réew.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-wine-glass-alt"></i>
+                        </div>
+                        <h3 data-lang="fr">Lait Chaud et Thés</h3>
+                        <h3 data-lang="wo" style="display: none;">Meew ak Ataaya yu Sell</h3>
+                        <p data-lang="fr">Notre sélection de laits chauds, thés et infusions pour tous les goûts, disponibles à toute heure pendant le Magal.</p>
+                        <p data-lang="wo" style="display: none;">Sunu meew yu sell, ataaya ak yeneen ndox yu sell, ñooñu ngi nekk barab bi yépp ci Magal bi.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 data-lang="fr">Petites Collations</h3>
+                        <h3 data-lang="wo" style="display: none;">Lekkal yu Ndaw</h3>
+                        <p data-lang="fr">En plus des boissons, nous proposons des petites collations pour accompagner votre café ou thé.</p>
+                        <p data-lang="wo" style="display: none;">Ci diggante ndox yi, dafay joxe itam lekkal yu ndaw ngir man a lekk ak sa café walla ataaya.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="whatsapp-section">
+                <div class="section-title">
+                    <h2 data-lang="fr">Rejoignez Notre Groupe WhatsApp</h2>
+                    <h2 data-lang="wo" style="display: none;">Dugg ci sunu Groupe WhatsApp</h2>
+                </div>
+                <p data-lang="fr">Restez informé de nos horaires, emplacements et promotions spéciales pendant le Grand Magal en rejoignant notre groupe WhatsApp.</p>
+                <p data-lang="wo" style="display: none;">Togg ci xibaar sunu waxtu, barab ak yiw yu rafet ci Magal gu Ñaari bi nga duggee ci sunu groupe WhatsApp.</p>
+                <a href="https://chat.whatsapp.com/Djs9u4M8cAV9ale6aZsDvb?s=cl&p=i&ilr=4&amv=2" class="whatsapp-link" target="_blank">
+                    <i class="fab fa-whatsapp"></i> <span data-lang="fr">Rejoindre le groupe WhatsApp</span>
+                    <span data-lang="wo" style="display: none;">Dugg ci Groupe WhatsApp</span>
+                </a>
+            </section>
+            
+            <section class="form-section" id="form">
+                <div class="section-title">
+                    <h2 data-lang="fr">Contactez-Nous</h2>
+                    <h2 data-lang="wo" style="display: none;">Nu Kontakte</h2>
+                </div>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name" data-lang="fr">Nom complet *</label>
+                        <label for="name" data-lang="wo" style="display: none;">Tur bu matale *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" data-lang="fr">Numéro de téléphone *</label>
+                        <label for="phone" data-lang="wo" style="display: none;">Nombaru télifoon *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+ <button type="submit" class="submit-btn" data-lang="fr">Envoyer le message</button>
+                    <button type="submit" class="submit-btn" data-lang="wo" style="display: none;">Yónnee bataaxal bi</button>
+                </form>
+            </section>
+        </div>
+        
+        <!-- Page Média -->
+        <div class="page" id="media-page">
+            <div class="section-title">
+                <h2 data-lang="fr">Galerie Média</h2>
+                <h2 data-lang="wo" style="display: none;">Diiwaanu Média</h2>
+            </div>
+            
+            <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem;">
+                <span data-lang="fr">Découvrez nos photos et vidéos des précédentes éditions du Grand Magal</span>
+                <span data-lang="wo" style="display: none;">Gis sunu foto ak wideo yu Magal gu Ñaari yu jaar ko</span>
+            </p>
+            
+            <div class="media-tabs">
+                <button class="tab-btn active" data-tab="live">
+                    <span data-lang="fr">Nouveautés</span>
+                    <span data-lang="wo" style="display: none;">Yu Bees</span>
+                </button>
+                <button class="tab-btn" data-tab="magal2022">
+                    <span data-lang="fr">Magal 2022</span>
+                    <span data-lang="wo" style="display: none;">Magal 2022</span>
+                </button>
+                <button class="tab-btn" data-tab="magal2023">
+                    <span data-lang="fr">Magal 2023</span>
+                    <span data-lang="wo" style="display: none;">Magal 2023</span>
+                </button>
+                <button class="tab-btn" data-tab="magal2024">
+                    <span data-lang="fr">Magal 2024</span>
+                    <span data-lang="wo" style="display: none;">Magal 2024</span>
+                </button>
+                <button class="tab-btn" data-tab="magal2025">
+                    <span data-lang="fr">Magal 2025</span>
+                    <span data-lang="wo" style="display: none;">Magal 2025</span>
+                </button>
+                <button class="tab-btn" data-tab="magal2026">
+                    <span data-lang="fr">Magal 2026</span>
+                    <span data-lang="wo" style="display: none;">Magal 2026</span>
+                </button>
+            </div>
+            
+            <!-- Nouveautés (contenu ajouté depuis le dashboard, chargé dynamiquement) -->
+            <div class="tab-content active" id="live-tab">
+                <h3 class="year-title">
+                    <span data-lang="fr">Nos Dernières Publications</span>
+                    <span data-lang="wo" style="display: none;">Sunu Yu Bees</span>
+                </h3>
+
+                <div id="dynamic-loading" style="text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Chargement...</span>
+                    <span data-lang="wo" style="display: none;">Dafay yeggu...</span>
+                </div>
+
+                <div id="dynamic-empty" style="display:none; text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Aucune publication pour le moment. Revenez bientôt !</span>
+                    <span data-lang="wo" style="display: none;">Amul benn xibaar léegi. Ñów suba!</span>
+                </div>
+
+                <div class="gallery" id="dynamic-gallery-images"></div>
+                <div class="videos-container" id="dynamic-gallery-videos"></div>
+            </div>
+
+            <!-- Magal 2022 -->
+            <div class="tab-content" id="magal2022-tab">
+                <h3 class="year-title">
+                    <span data-lang="fr">Magal 2022 - Notre Première Participation</span>
+                    <span data-lang="wo" style="display: none;">Magal 2022 - Sunu Njëkk Diggu</span>
+                </h3>
+
+                <div id="dynamic-empty-magal2022" style="display:none; text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Aucune publication pour le moment.</span>
+                    <span data-lang="wo" style="display: none;">Amul benn xibaar léegi.</span>
+                </div>
+
+                <div class="gallery" id="dynamic-gallery-images-magal2022"></div>
+                <div class="videos-container" id="dynamic-gallery-videos-magal2022"></div>
+
+            </div>
+            
+            <!-- Magal 2023 -->
+            <div class="tab-content" id="magal2023-tab">
+                <h3 class="year-title">
+                    <span data-lang="fr">Magal 2023 - Expansion et Reconnaissance</span>
+                    <span data-lang="wo" style="display: none;">Magal 2023 - Yëkkat ak Xam-xam</span>
+                </h3>
+
+                <div id="dynamic-empty-magal2023" style="display:none; text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Aucune publication pour le moment.</span>
+                    <span data-lang="wo" style="display: none;">Amul benn xibaar léegi.</span>
+                </div>
+
+                <div class="gallery" id="dynamic-gallery-images-magal2023"></div>
+                <div class="videos-container" id="dynamic-gallery-videos-magal2023"></div>
+
+            </div>
+            
+            <!-- Les autres années (2024, 2025) suivent le même modèle -->
+            <!-- Pour économiser de l'espace, je vais simplifier les autres sections -->
+            
+            <!-- Magal 2024 -->
+            <div class="tab-content" id="magal2024-tab">
+                <h3 class="year-title">
+                    <span data-lang="fr">Magal 2024 - Innovation et Excellence</span>
+                    <span data-lang="wo" style="display: none;">Magal 2024 - Jub ak Rafet</span>
+                </h3>
+
+                <div id="dynamic-empty-magal2024" style="display:none; text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Aucune publication pour le moment.</span>
+                    <span data-lang="wo" style="display: none;">Amul benn xibaar léegi.</span>
+                </div>
+
+                <div class="gallery" id="dynamic-gallery-images-magal2024"></div>
+                <div class="videos-container" id="dynamic-gallery-videos-magal2024"></div>
+
+            </div>
+            
+            <!-- Magal 2025 -->
+            <div class="tab-content" id="magal2025-tab">
+                <h3 class="year-title">
+                    <span data-lang="fr">Magal 2025 - Perspectives Futures</span>
+                    <span data-lang="wo" style="display: none;">Magal 2025 - Xalaat ci Ñëw</span>
+                </h3>
+
+                <div id="dynamic-empty-magal2025" style="display:none; text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Aucune publication pour le moment.</span>
+                    <span data-lang="wo" style="display: none;">Amul benn xibaar léegi.</span>
+                </div>
+
+                <div class="gallery" id="dynamic-gallery-images-magal2025"></div>
+                <div class="videos-container" id="dynamic-gallery-videos-magal2025"></div>
+            </div>
+
+            <!-- Magal 2026 (entièrement alimenté depuis le dashboard) -->
+            <div class="tab-content" id="magal2026-tab">
+                <h3 class="year-title">
+                    <span data-lang="fr">Magal 2026</span>
+                    <span data-lang="wo" style="display: none;">Magal 2026</span>
+                </h3>
+
+                <div id="dynamic-loading-magal2026" style="text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Chargement...</span>
+                    <span data-lang="wo" style="display: none;">Dafay yeggu...</span>
+                </div>
+
+                <div id="dynamic-empty-magal2026" style="display:none; text-align:center; padding: 20px; color: var(--dark-color);">
+                    <span data-lang="fr">Aucune publication pour le Magal 2026 pour le moment.</span>
+                    <span data-lang="wo" style="display: none;">Amul benn xibaar ci Magal 2026 léegi.</span>
+                </div>
+
+                <div class="gallery" id="dynamic-gallery-images-magal2026"></div>
+                <div class="videos-container" id="dynamic-gallery-videos-magal2026"></div>
+            </div>
+        </div>
+        
+        <!-- Page À propos - version simplifiée pour économiser de l'espace -->
+        <div class="page" id="about-page">
+            <div class="section-title">
+                <h2 data-lang="fr">À Propos de Nous</h2>
+                <h2 data-lang="wo" style="display: none;">Ci lanu</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 data-lang="fr">Notre Histoire</h3>
+                    <h3 data-lang="wo" style="display: none;">Sunu Taariix</h3>
+                    <p data-lang="fr">Ahlou Café Touba Sourah a été fondé en ......avec une mission simple mais profonde : servir des boissons chaudes de qualité aux pèlerins du Grand Magal de Touba.</p>
+                    <p data-lang="wo" style="display: none;">Ahlou Café Touba Sourah dañu ko sos ci 2021 ak njàngale woyof : joxe ndox yu sell yu rafet ci ñiy sàkku ci Magal gu Ñaari ci Touba.</p>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1147&q=80" alt="Équipe Ahlou Café">
+                </div>
+            </div>
+            
+            <div class="mission-section">
+                <h3 data-lang="fr">Notre Mission</h3>
+                <h3 data-lang="wo" style="display: none;">Sunu Njàngale</h3>
+                <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                    <span data-lang="fr">"Fournir un réconfort chaleureux aux pèlerins du Grand Magal de Touba grâce à des boissons de qualité préparées avec respect des traditions et servies avec générosité et hospitalité."</span>
+                    <span data-lang="wo" style="display: none;">"Joxe yombal yu sell ci ñiy sàkku ci Magal gu Ñaari ci Touba ak ndox yu rafet yu defar ak respect ci cosaan, te ñu joxe ko ak xel mu sell ak teraanga."</span>
+                </p>
+            </div>
+            
+            <div class="whatsapp-section" style="margin-top: 60px;">
+                <h3 style="color: var(--dark-color); margin-bottom: 20px;" data-lang="fr">Contactez-Nous</h3>
+                <h3 style="color: var(--dark-color); margin-bottom: 20px; display: none;" data-lang="wo">Nu Kontakte</h3>
+                <p data-lang="fr">Pour toute question ou information supplémentaire, n'hésitez pas à nous contacter via notre groupe WhatsApp ou par téléphone.</p>
+                <p data-lang="wo" style="display: none;">Ba laaj laaj walla xibaar, bul xelati nu kontakte ci sunu groupe WhatsApp walla ci télifoon.</p>
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+                    <a href="https://chat.whatsapp.com/Djs9u4M8cAV9ale6aZsDvb?s=cl&p=i&ilr=4&amv=2" class="whatsapp-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> 
+                        <span data-lang="fr">Groupe WhatsApp</span>
+                        <span data-lang="wo" style="display: none;">Groupe WhatsApp</span>
+                    </a>
+                    <a href="tel:+221781838576" class="whatsapp-link" style="background-color: var(--primary-color);">
+                        <i class="fas fa-phone"></i> 
+                        <span data-lang="fr">Appelez-nous</span>
+                        <span data-lang="wo" style="display: none;">Wootal nu</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 data-lang="fr">Ahlou Café Touba Sourah</h3>
+                    <h3 data-lang="wo" style="display: none;">Ahlou Café Touba Sourah</h3>
+                    <p data-lang="fr">Service de café, lait et boissons chaudes pendant le Grand Magal de Touba.</p>
+                    <p data-lang="wo" style="display: none;">Soxna café, meew ak ndox yu sell ci Magal gu Ñaari ci Touba.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 data-lang="fr">Liens Rapides</h3>
+                    <h3 data-lang="wo" style="display: none;">Liyen yi Yàggul</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-nav-link" data-page="home">
+                            <span data-lang="fr">Accueil</span>
+                            <span data-lang="wo" style="display: none;">Njëkk</span>
+                        </a></li>
+                        <li><a href="#" class="footer-nav-link" data-page="media">
+                            <span data-lang="fr">Média</span>
+                            <span data-lang="wo" style="display: none;">Média</span>
+                        </a></li>
+                        <li><a href="#" class="footer-nav-link" data-page="about">
+                            <span data-lang="fr">À propos</span>
+                            <span data-lang="wo" style="display: none;">Ci lanu</span>
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 data-lang="fr">Nos Services</h3>
+                    <h3 data-lang="wo" style="display: none;">Sunu Soxna yi</h3>
+                    <ul class="footer-links">
+                        <li data-lang="fr">Café Touba</li>
+                        <li data-lang="wo" style="display: none;">Café Touba </li>
+                        <li data-lang="fr">Lait Chaud & Thés</li>
+                        <li data-lang="wo" style="display: none;">Meew & Ataaya</li>
+                        <li data-lang="fr">Petites Collations</li>
+                        <li data-lang="wo" style="display: none;">Lekkal yu ndaw</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 data-lang="fr">Contact</h3>
+                    <h3 data-lang="wo" style="display: none;">Kontakt</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Touba, Sénégal</li>
+                        <li><i class="fas fa-phone"></i> +221 781838576</li>
+                        <li><i class="fas fa-envelope"></i> contact@ahloucafe.com</li>
+                        <li><i class="fab fa-whatsapp"></i> 
+                            <span data-lang="fr">Groupe WhatsApp disponible</span>
+                            <span data-lang="wo" style="display: none;">Groupe WhatsApp nekk</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p data-lang="fr">&copy; 2023 Ahlou Café Touba Sourah. Tous droits réservés. | Site conçu pour le Grand Magal de Touba</p>
+                <p data-lang="wo" style="display: none;">&copy; 2023 Ahlou Café Touba Sourah. Yépp sañu ko. | Site defar ngir Magal gu Ñaari ci Touba</p>
+            </div>
+        </div>
+    </footer>
+    <script src="scriptes.js"></script>
+</body>
+</html>
